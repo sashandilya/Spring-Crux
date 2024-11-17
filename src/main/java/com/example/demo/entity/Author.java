@@ -50,4 +50,13 @@ public class Author {
     public void setBlogList(List<Blog> blogList) {
         this.blogList = blogList;
     }
+
+    @Override
+    public String toString() {
+        return "Author{" +
+                "authorId=" + authorId +
+                ", authorName='" + authorName + '\'' +
+                ", blogList=" + blogList +
+                '}';
+    }
 }

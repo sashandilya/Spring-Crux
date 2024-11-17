@@ -14,4 +14,11 @@ public class AuthorDto {
     public void setAuthorName(String authorName) {
         this.authorName = authorName;
     }
+
+    @Override
+    public String toString() {
+        return "AuthorDto{" +
+                "authorName='" + authorName + '\'' +
+                '}';
+    }
 }
