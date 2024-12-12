@@ -11,7 +11,7 @@ import org.hibernate.annotations.CreationTimestamp;
 @Data
 public class Blog {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(nullable = false, name = "blog_id")
     private Integer blogId;
@@ -23,7 +23,7 @@ public class Blog {
     @CreationTimestamp
     private String creationDate;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "author_id")
     private Author author;
 

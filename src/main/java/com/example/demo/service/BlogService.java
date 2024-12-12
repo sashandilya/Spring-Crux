@@ -37,7 +37,6 @@ public class BlogService {
         Author author = authorRepository.findById(blogDto.getAuthorId()).orElse(null);
         blog.setAuthor(author);
         blogCounter.increment();
-        blog.setBlogId(blogDto.getAuthorId());
 
         return blogRepository.save(blog);
     }
@@ -47,5 +46,9 @@ public class BlogService {
         authorNew.setAuthorName(authorDto.getAuthorName());
         authorCounter.increment();
         return authorRepository.save(authorNew);
+    }
+
+    public void removeAuthor(int authorId) {
+        authorRepository.deleteById(authorId);
     }
 }

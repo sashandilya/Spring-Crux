@@ -37,6 +37,14 @@ public class HomeController {
         return ResponseEntity.ok("Success");
     }
 
+    @PostMapping(value = "/removeAuthor/{id}")
+    @LogAspect
+    @Authorize(roles = {"admin_role"})
+    public ResponseEntity<String> removeAuthor(@PathVariable("id") int authorId){
+        blogService.removeAuthor(authorId);
+        return ResponseEntity.ok("Author removed.");
+    }
+
 
     @PostMapping(value = "/registerAuthor")
     @LogAspect

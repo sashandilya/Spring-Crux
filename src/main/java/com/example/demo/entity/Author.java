@@ -16,7 +16,7 @@ import java.util.List;
 public class Author {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, name = "author_id")
     private Integer authorId;
 
@@ -24,7 +24,7 @@ public class Author {
     private String authorName;
 
     @Column(nullable = false)
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "author", cascade = { CascadeType.PERSIST, CascadeType.MERGE }, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Blog>blogList = new ArrayList<>();
 
     public Integer getAuthorId() {
