@@ -1,15 +1,18 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+
+import java.io.Serializable;
 
 @Entity
 @Table(name = "blog")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Blog {
+public class Blog implements Serializable {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -23,7 +26,7 @@ public class Blog {
     @CreationTimestamp
     private String creationDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
     private Author author;
 

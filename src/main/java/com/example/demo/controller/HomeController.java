@@ -4,16 +4,17 @@ import com.example.demo.annotation.Authorize;
 import com.example.demo.annotation.LogAspect;
 import com.example.demo.dto.AuthorDto;
 import com.example.demo.dto.BlogDto;
+import com.example.demo.dto.BlogResponseDto;
 import com.example.demo.entity.Author;
 import com.example.demo.entity.Blog;
 import com.example.demo.service.BlogService;
 import io.micrometer.core.annotation.Timed;
-import io.micrometer.core.instrument.Counter;
-import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/blog/home")
@@ -35,6 +36,25 @@ public class HomeController {
     public ResponseEntity<String> createBlog(@RequestBody BlogDto blogDto){
         Blog responseBlog = blogService.createBlog(blogDto);
         return ResponseEntity.ok("Success");
+    }
+
+    @GetMapping(value = "/getBlog/{blogId}")
+    public ResponseEntity<BlogResponseDto> getBlogDetail(@PathVariable("blogId") int blogId){
+        BlogResponseDto blogResponseDto = blogService.getBlogById(blogId);
+        return ResponseEntity.ok(blogResponseDto);
+    }
+
+//    @GetMapping(value = "/getBlog/{authorId}")
+//    public ResponseEntity<List<Blog>> getBlogsForAuthor(@PathVariable("authorId") int authorId){
+//        List<Blog> blogs = blogService.getBlogsByAuthorId(authorId);
+//        return ResponseEntity.ok(blogs);
+//    }
+//
+    @GetMapping(value = "/getBlogs")
+    public ResponseEntity<List<BlogResponseDto>> getAllBlogsByAuthorId(@RequestParam("author_id") int authorId,
+                                                                       @RequestParam("page_number") int pageNo, @RequestParam("page_size") int pageSize){
+        List<BlogResponseDto> blogs = blogService.getBlogs(authorId, pageNo, pageSize);
+        return ResponseEntity.ok(blogs);
     }
 
     @PostMapping(value = "/removeAuthor/{id}")
